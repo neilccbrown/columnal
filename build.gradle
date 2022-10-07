@@ -147,7 +147,9 @@ subprojects { subproject ->
 
       jvmArgs += ['-Xmx2G',
                   '-XX:+HeapDumpOnOutOfMemoryError',
-                  '-XX:+UseCompressedOops',
+                  '-XX:+UseCompressedOops'] +
+                  // Headless is the default because headed GUI tests are quite a surprise and cause havoc:
+                  (("true".equals(project.findProperty("headless")) || project.findProperty("headless") == null) ? [
                   '-Djava.awt.headless=true',
                   '-Dtestfx.robot=glass',
                   '-Dtestfx.headless=true',
@@ -155,7 +157,7 @@ subprojects { subproject ->
                   '-Dprism.text=t2k',
                   '-Dglass.platform=Monocle',
                   '-Dmonocle.platform=Headless',
-                  '-Dheadless.geometry=1920x1200-32']
+                  '-Dheadless.geometry=1920x1200-32'] : [])
 
       // If it goes beyond this in normal execution, we should split the module(s) up further:
       timeout = Duration.ofMinutes(40)
