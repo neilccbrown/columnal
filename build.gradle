@@ -144,6 +144,8 @@ subprojects { subproject ->
       // This stops failing tests tripping others up, and generally
       // helps keep the GUI tests isolated:
       forkEvery = 1
+      
+      executable = "./java-xvfb"
 
       jvmArgs += ['-Xmx2G',
                   '-XX:+HeapDumpOnOutOfMemoryError',
