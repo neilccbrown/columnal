@@ -2,7 +2,7 @@ import java.time.Duration
 
 plugins {
   id 'org.checkerframework' version '0.6.16' apply false
-  id 'org.openjfx.javafxplugin' version '0.0.10' apply false
+  id 'org.openjfx.javafxplugin' version '0.0.13' apply false
   //id "com.github.spotbugs" version "5.0.12" apply false
   id "com.github.ben-manes.versions" version "0.42.0"
 }
@@ -69,7 +69,7 @@ subprojects { subproject ->
       ] : []) + ("true".equals(project.findProperty("threadCheck")) ? ['-Xplugin:threadchecker.plugin.TCPlugin'] : [])
     }
     javafx {
-      version = "13.0.2"
+      version = "17.0.2"
       // We need at least javafx.base and javafx.graphics everywhere because the threadchecker uses it:
       // TODO fix this!
       modules = projectsToJavaFX.getOrDefault(subproject.name, ['javafx.base', 'javafx.graphics'])
