@@ -453,17 +453,14 @@ public class TestVirtualGridScrollCoordinates extends FXApplicationTest
             }
             TFXUtil.sleep(1200);
             TFXUtil.fx_(() -> { if (timer[0] != null) timer[0].stop();});
-            Function<Double, Matcher<Double>> strictlyAfter;
             Function<Double, Matcher<Double>> afterOrSame;
             if (scrollDocumentUp[0])
             {
-                strictlyAfter = Matchers::greaterThan;
-                afterOrSame = Matchers::greaterThanOrEqualTo;
+                afterOrSame = x -> Matchers.greaterThanOrEqualTo(x - 1);
             }
             else
             {
-                strictlyAfter = Matchers::lessThan;
-                afterOrSame = Matchers::lessThanOrEqualTo;
+                afterOrSame = x -> Matchers.lessThanOrEqualTo(x + 1);
             }
             
             // Check that the node moved:
