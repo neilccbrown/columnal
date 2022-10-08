@@ -371,7 +371,7 @@ public class TestCellReadWrite extends FXApplicationTest implements ScrollToTrai
     @OnThread(Tag.Any)
     public void pushCopy()
     {
-        if (SystemUtils.IS_OS_MAC_OSX)
+        if (SystemUtils.IS_OS_MAC_OSX || true)
             push(KeyCode.F11);
         else
             push(TFXUtil.ctrlCmd(), KeyCode.C);
