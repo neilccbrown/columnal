@@ -184,10 +184,9 @@ subprojects { subproject ->
                     '-Dmonocle.platform=Headless',
                     '-Dheadless.geometry=1920x1200-32'] : [
                     // Headed:
-                    '-Dtestfx.robot=glass',
-                    '-Dtestfx.setup.timeout=5000',
+                    '-Dtestfx.robot=awt',
+                    '-Dtestfx.setup.timeout=10000',
                     '-Dprism.verbose=true',
-                    '-Dprism.order=sw',
                     '-Dprism.text=t2k',
                   ])
 
