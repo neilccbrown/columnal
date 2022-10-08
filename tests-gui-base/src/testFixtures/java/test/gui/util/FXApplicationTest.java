@@ -125,6 +125,7 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
     @OnThread(value = Tag.FXPlatform, ignoreParent = true)
     public void start(Stage _stage) throws Exception
     {
+        System.out.println("Testing with DISPLAY: \"" + System.getenv("DISPLAY") + "\"");
         // Don't use the stage TestFX gives us as it re-uses it across tests.  Although
         // it's a bit slower, use a fresh one as it avoids issue with listeners etc
         // that are still attached to the old Stage:
