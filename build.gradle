@@ -144,9 +144,31 @@ subprojects { subproject ->
       // This stops failing tests tripping others up, and generally
       // helps keep the GUI tests isolated:
       forkEvery = 1
-      
-      executable = "./java-xvfb"
 
+      // TODO fix the old tests module
+      if (subproject.name.contains("gui") || subproject.name.equals("tests")) {
+        // Only need the ones that use the GUI:
+        // Note: if you add a new test here you need to add a new screen in run-xvfb-screens.sh
+        def guiTestModules = [
+                "tests",
+                "tests-gui-cell-rw",
+                "tests-gui-dtf",
+                "tests-gui-expression-editor",
+                "tests-gui-expression-editor-delete",
+                "tests-gui-expression-editor-further",
+                "tests-gui-expression-editor-position",
+                "tests-gui-format",
+                "tests-gui-grid",
+                "tests-gui-numbers",
+                "tests-gui-side",
+                "tests-gui-tables",
+                "tests-gui-transformations",
+                "tests-gui-transformations-create-edit",
+                "tests-gui-type-editor",
+        ]
+        environment "DISPLAY", (":42." + Integer.toString(guiTestModules.indexOf(subproject.name)))
+      }
+      
       jvmArgs += ['-Xmx2G',
                   '-XX:+HeapDumpOnOutOfMemoryError',
                   '-XX:+UseCompressedOops'] +
