@@ -1327,7 +1327,10 @@ public final class VirtualGrid extends GridWithColumnWidths implements ScrollBin
                     InputMap.<Event, KeyEvent>consume(EventPattern.<Event, KeyEvent>anyOf(EventPattern.keyPressed(KeyCode.F11), EventPattern.keyPressed(KeyCode.C, KeyCombination.SHORTCUT_DOWN)), e -> {
                         @Nullable CellSelection focusedCellPosition = selection.get();
                         if (focusedCellPosition != null)
+                        {
+                            System.out.println("doCopy on basis of key event");
                             focusedCellPosition.doCopy();
+                        }
                         e.consume();
                     }),
                     InputMap.<Event, KeyEvent>consume(EventPattern.<Event, KeyEvent>anyOf(EventPattern.keyPressed(KeyCode.V, KeyCombination.SHORTCUT_DOWN)), e -> {
