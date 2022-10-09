@@ -36,6 +36,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.robot.Robot;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -174,7 +175,8 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
     public final void dumpScreenshot()
     {
         // Seems to throw an exception under JFX 13 and Monocle 12:
-        //printBase64(new Robot().getScreenCapture(null, Screen.getPrimary().getBounds()));
+        printBase64(new Robot().getScreenCapture(null, Screen.getPrimary().getBounds()));
+        /*
         WritableImage whole = new WritableImage((int)Screen.getPrimary().getBounds().getWidth(), (int)Screen.getPrimary().getBounds().getHeight());
         ObservableList<Window> windows = Window.getWindows();
         if (!windows.isEmpty() && windows.contains(targetWindow()))
@@ -198,6 +200,7 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
             if (window != null)
                 dumpScreenshot(window);
         }
+         */
     }
     
     @OnThread(Tag.FXPlatform)
