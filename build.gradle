@@ -149,6 +149,8 @@ subprojects { subproject ->
       // helps keep the GUI tests isolated:
       forkEvery = 1
 
+      environment "DISPLAY", ":42.0"
+      
       jvmArgs += ['-Xmx2G',
                   '-XX:+HeapDumpOnOutOfMemoryError',
                   '-XX:+UseCompressedOops',
