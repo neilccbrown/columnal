@@ -175,7 +175,10 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
     public final void dumpScreenshot()
     {
         // Seems to throw an exception under JFX 13 and Monocle 12:
-        printBase64(new Robot().getScreenCapture(null, Screen.getPrimary().getBounds()));
+        for (Screen screen : Screen.getScreens())
+        {
+            printBase64(new Robot().getScreenCapture(null, screen.getBounds()));
+        }
         /*
         WritableImage whole = new WritableImage((int)Screen.getPrimary().getBounds().getWidth(), (int)Screen.getPrimary().getBounds().getHeight());
         ObservableList<Window> windows = Window.getWindows();
