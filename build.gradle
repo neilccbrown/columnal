@@ -182,15 +182,15 @@ subprojects { subproject ->
       doFirst {
         if ("true".equals(project.findProperty("xvfb"))) {
           xvfbPID = ("Xvfb :" + displayNumber + " -screen 0 1920x1200x24").execute()
-          "enlightenment_start".execute(new String[] {"DISPLAY=:" + displayNumber}, null)
+          ("enlightenment_start").execute(new String[] {"DISPLAY=:" + displayNumber}, null)
           if ("true".equals(project.findProperty("screenrecord"))) {
-            "tmux new-session -d -s ColumnalTestRecording" + index + " 'ffmpeg -video_size 1920x1200 -framerate 12 -f x11grab -i :" + displayNumber + ".0 -codec:v libx264 recording-" + subproject.name + ".mp4'".execute()
+            ("tmux new-session -d -s ColumnalTestRecording" + index + " 'ffmpeg -video_size 1920x1200 -framerate 12 -f x11grab -i :" + displayNumber + ".0 -codec:v libx264 recording-" + subproject.name + ".mp4'").execute()
           }
         }
       }
       doLast {
         if ("true".equals(project.findProperty("screenrecord"))) {
-          "tmux send-keys -t ColumnalTestRecording" + index + " q".execute()
+          ("tmux send-keys -t ColumnalTestRecording" + index + " q").execute()
           // Give FFMPEG some time to finish up:
           sleep(20_000);
         }
