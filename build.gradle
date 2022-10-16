@@ -173,18 +173,17 @@ subprojects { subproject ->
       // If it goes beyond this in normal execution, we should split the module(s) up further:
       timeout = Duration.ofMinutes(40)
       
-      int index = allSubprojects.collect {p -> p.name}.sort().indexOf(subproject.name)
-      int displayNumber = index + 10
-      Process xvfbPID = null
+      int index = allSubprojects.findAll{p -> p.name.contains("tests-gui")}.collect {p -> p.name}.sort().indexOf(subproject.name)
 
-      environment "DISPLAY", ":" + displayNumber + ".0"
+      if ("true".equals(project.findProperty("xvfb"))) {
+        environment "DISPLAY", ":42." + index
+      }
       
       doFirst {
         if ("true".equals(project.findProperty("xvfb"))) {
-          xvfbPID = ("Xvfb :" + displayNumber + " -screen 0 1920x1200x24").execute()
-          ("enlightenment_start").execute(new String[] {"DISPLAY=:" + displayNumber}, null)
+          ("enlightenment_start").execute(new String[] {"DISPLAY=:42." + index}, null)
           if ("true".equals(project.findProperty("screenrecord"))) {
-            ("tmux new-session -d -s ColumnalTestRecording" + index + " 'ffmpeg -video_size 1920x1200 -framerate 12 -f x11grab -i :" + displayNumber + ".0 -codec:v libx264 recording-" + subproject.name + ".mp4'").execute()
+            ("tmux new-session -d -s ColumnalTestRecording" + index + " 'ffmpeg -video_size 1920x1200 -framerate 12 -f x11grab -i :42." + index + " -codec:v libx264 recording-" + subproject.name + ".mp4'").execute()
           }
         }
       }
@@ -193,10 +192,6 @@ subprojects { subproject ->
           ("tmux send-keys -t ColumnalTestRecording" + index + " q").execute()
           // Give FFMPEG some time to finish up:
           sleep(20_000);
-        }
-        // Close xvfb if open:
-        if (xvfbPID != null) {
-          xvfbPID.destroy();
         }
       }
     }
