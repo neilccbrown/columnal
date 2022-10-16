@@ -173,7 +173,7 @@ subprojects { subproject ->
       // If it goes beyond this in normal execution, we should split the module(s) up further:
       timeout = Duration.ofMinutes(40)
       
-      int index = allSubprojects.findAll{p -> p.name.contains("tests-gui")}.collect {p -> p.name}.sort().indexOf(subproject.name)
+      int index = allSubprojects.findAll{p -> p.name.contains("tests-gui")}.collect {p -> p.name}.sort().indexOf(subproject.name) - 1
 
       if ("true".equals(project.findProperty("xvfb"))) {
         environment "DISPLAY", ":42." + index
