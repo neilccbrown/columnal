@@ -148,8 +148,6 @@ subprojects { subproject ->
       // This stops failing tests tripping others up, and generally
       // helps keep the GUI tests isolated:
       forkEvery = 1
-
-      environment "DISPLAY", ":42.0"
       
       jvmArgs += ['-Xmx2G',
                   '-XX:+HeapDumpOnOutOfMemoryError',
@@ -178,6 +176,8 @@ subprojects { subproject ->
       int index = allSubprojects.collect {p -> p.name}.sort().indexOf(subproject.name)
       int displayNumber = index + 10
       Process xvfbPID = null
+
+      environment "DISPLAY", ":" + displayNumber + ".0"
       
       doFirst {
         if ("true".equals(project.findProperty("xvfb"))) {
