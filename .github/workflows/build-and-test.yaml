@@ -24,10 +24,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install xvfb
           Xvfb :42 -screen 0 1920x1200x24 &
-          sudo apt-get install tmux ffmpeg
+          sudo apt-get install tmux ffmpeg enlightenment
           # From https://malinowski.dev/recording-headless-selenium-tests-to-mp4.html
           cd ${{ github.workspace }}
           tmux new-session -d -s TestRecording 'ffmpeg -video_size 1920x1200 -framerate 12 -f x11grab -i :42.0 -codec:v libx264 recording.mp4'
+          DISPLAY=:42 /usr/bin/enlightenment_start
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@859c33240bd026ce8d5f711f5adcc65c2f8eafc1
       - name: Build with Gradle
