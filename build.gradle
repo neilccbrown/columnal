@@ -21,6 +21,8 @@ def projectsToJavaFX = [
   utility:  ['javafx.base', 'javafx.graphics']
 ]
 
+def allSubprojects = subprojects
+
 subprojects { subproject ->
   if (!subproject.name.startsWith("ann") && !subproject.name.contains("checker") && !subproject.name.contains("tests") && !subproject.name.equals("xml")) {
     apply plugin: 'java-library'
@@ -173,14 +175,14 @@ subprojects { subproject ->
       // If it goes beyond this in normal execution, we should split the module(s) up further:
       timeout = Duration.ofMinutes(40)
       
-      int index = project.subprojects.collect {p -> p.name}.sort().indexOf(subproject.name)
+      int index = allSubprojects.collect {p -> p.name}.sort().indexOf(subproject.name)
       int displayNumber = index + 10
       Process xvfbPID = null
       
       doFirst {
         if ("true".equals(project.findProperty("xvfb"))) {
           xvfbPID = ("Xvfb :" + displayNumber + " -screen 0 1920x1200x24").execute()
-          ("DISPLAY=:" + displayNumber + " enlightenment_start").execute()
+          "enlightenment_start".execute(new String[] {"DISPLAY=:" + displayNumber}, null)
           if ("true".equals(project.findProperty("screenrecord"))) {
             "tmux new-session -d -s ColumnalTestRecording" + index + " 'ffmpeg -video_size 1920x1200 -framerate 12 -f x11grab -i :" + displayNumber + ".0 -codec:v libx264 recording-" + subproject.name + ".mp4'".execute()
           }
