@@ -36,7 +36,9 @@ jobs:
           arguments: build -Pcheckers=all -PthreadCheck=true -Pheadless=false --info --stacktrace --no-daemon --scan
       - name: Stop FFMPEG
         if: always()
-        run: tmux send-keys -t TestRecording q
+        run: |
+          tmux send-keys -t TestRecording q
+          sleep 30
       - name: Archive video
         if: always()
         uses: actions/upload-artifact@v3
