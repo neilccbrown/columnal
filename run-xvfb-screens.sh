@@ -1,3 +1,4 @@
+#! /bin/sh
 #
 # Columnal: Safer, smoother data table processing.
 # Copyright (c) Neil Brown, 2016-2020, 2022.
@@ -17,8 +18,6 @@
 # You should have received a copy of the GNU General Public License along 
 # with Columnal. If not, see <https://www.gnu.org/licenses/>.
 #
-
-#! /bin/sh
 
 Xvfb :42 \
   -screen 0 1920x1200x24 \
