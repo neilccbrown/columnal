@@ -181,30 +181,21 @@ subprojects { subproject ->
         environment "DISPLAY", ":42." + index
       }
       
-      Process enlightenment = null;
-      
       doFirst {
-        if ("true".equals(project.findProperty("xvfb"))) {
-          ProcessBuilder pb = new ProcessBuilder("enlightenment_start").inheritIO()
-          pb.environment().put("DISPLAY", ":42." + index)
-          enlightenment = pb.start()
-          sleep(5000)
-          if (!enlightenment.isAlive())
-            throw new GradleScriptException("Enlightenment failed to start")
+        if (index >= 0 && "true".equals(project.findProperty("xvfb"))) {
           if ("true".equals(project.findProperty("screenrecord"))) {
-            ("tmux new-session -d -s ColumnalTestRecording" + index + " 'ffmpeg -video_size 1920x1200 -framerate 12 -f x11grab -i :42." + index + " -codec:v libx264 recording-" + subproject.name + ".mp4'").execute()
+            new ProcessBuilder("tmux", "new-session", "-d", "-s", "ColumnalTestRecording" + index, "ffmpeg -y -video_size 1920x1200 -framerate 12 -f x11grab -i :42." + index + " -codec:v libx264 recording-" + subproject.name + ".mp4").start()
           }
         }
       }
       doLast {
-        if (enlightenment != null)
-          enlightenment.destroy()
-        if ("true".equals(project.findProperty("screenrecord"))) {
-          ("tmux send-keys -t ColumnalTestRecording" + index + " q").execute()
+        if (index >= 0 && "true".equals(project.findProperty("screenrecord"))) {
+          new ProcessBuilder("tmux", "send-keys", "-t", "ColumnalTestRecording" + index, "q").start()
           // Give FFMPEG some time to finish up:
           sleep(20_000);
         }
       }
+
     }
 
     processTestResources.dependsOn ':xml:build'
