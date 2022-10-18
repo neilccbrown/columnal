@@ -12,13 +12,15 @@ def projectsToJavaFX = [
   app: ['javafx.base', 'javafx.controls', 'javafx.graphics', 'javafx.web'],
   data: ['javafx.base', 'javafx.graphics'],
   expressions: ['javafx.graphics'],
-  'gui-utility': ['javafx.base', 'javafx.controls', 'javafx.graphics', 'javafx.web'],
+  'utility-gui': ['javafx.base', 'javafx.controls', 'javafx.graphics', 'javafx.web'],
   identifiers: ['javafx.graphics'],
   'lex-editor': ['javafx.base', 'javafx.controls', 'javafx.graphics', 'javafx.web'],
+  'lex-editor-completion': ['javafx.base', 'javafx.controls', 'javafx.graphics', 'javafx.web'],
   stf: ['javafx.base', 'javafx.controls', 'javafx.graphics'],
   transformations:  ['javafx.base', 'javafx.controls', 'javafx.graphics'],
   types: ['javafx.graphics'],
-  utility:  ['javafx.base', 'javafx.graphics']
+  utility:  ['javafx.base', 'javafx.graphics'],
+  'utility-error':  ['javafx.base', 'javafx.graphics']
 ]
 
 def allSubprojects = subprojects

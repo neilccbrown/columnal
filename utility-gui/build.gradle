@@ -1,0 +1,15 @@
+dependencies {
+    implementation project(':utility')
+    implementation project(':utility-adt')
+    implementation project(':utility-error')
+    implementation project(':utility-functional')
+    implementation project(':parsers')
+    implementation libs.guava
+    implementation libs.commons.lang3
+    implementation libs.controlsfx
+    implementation libs.wellbehavedfx
+    implementation libs.thumbnailator
+    implementation libs.jna.platform
+}
+
+description = 'utility-gui'

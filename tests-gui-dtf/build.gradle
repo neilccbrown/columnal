@@ -1,12 +1,15 @@
 dependencies {
     testImplementation project(':data')
     testImplementation project(':expressions')
-    testImplementation project(':gui-utility')
+    testImplementation project(':utility-gui')
     testImplementation project(':identifiers')
     testImplementation project(':parsers')
     testImplementation project(':stf')
     testImplementation project(':types')
     testImplementation project(':utility')
+    testImplementation project(':utility-adt')
+    testImplementation project(':utility-error')
+    testImplementation project(':utility-functional')
     testImplementation libs.guava
     testImplementation libs.testfx.core
     testImplementation libs.testfx.junit
