@@ -33,8 +33,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import org.apache.commons.lang3.SystemUtils;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.testfx.api.FxRobotException;
 import org.testfx.api.FxRobotInterface;
 import org.testfx.service.query.NodeQuery;
+import org.testfx.service.query.PointQuery;
 import test.gui.TFXUtil;
 import xyz.columnal.data.CellPosition;
 import xyz.columnal.data.TBasicUtil;
@@ -50,12 +52,16 @@ import xyz.columnal.gui.grid.CellSelection;
 import xyz.columnal.gui.grid.VirtualGrid;
 import threadchecker.OnThread;
 import threadchecker.Tag;
+import xyz.columnal.log.Log;
 import xyz.columnal.utility.Utility;
+import xyz.columnal.utility.gui.FXUtility;
 
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 
 import static org.junit.Assert.*;
+import static org.testfx.util.NodeQueryUtils.isVisible;
 
 public interface ScrollToTrait extends FxRobotInterface, FocusOwnerTrait, QueryTrait
 {
@@ -198,6 +204,10 @@ public interface ScrollToTrait extends FxRobotInterface, FocusOwnerTrait, QueryT
         }));
         if (usingMenu)
         {
+            Log.debug("Bounds for id-menu-view off-thread " + bounds("#id-menu-view").query());
+            Log.debug("Bounds for id-menu-view on-thread " + TFXUtil.fx((() -> bounds("#id-menu-view").query())));
+            Log.debug("Point for id-menu-view off-thread " + pointOfVisibleNode("#id-menu-view").query());
+            Log.debug("Point for id-menu-view on-thread " + TFXUtil.fx((() -> pointOfVisibleNode("#id-menu-view").query())));
             clickOn("#id-menu-view").clickOn(".id-menu-view-goto-row");
             assertShowing("Zero-based row: " + row, ".ok-button");
             TFXUtil.sleep(200);
@@ -209,6 +219,24 @@ public interface ScrollToTrait extends FxRobotInterface, FocusOwnerTrait, QueryT
         // Wait for complete refresh:
         TFXUtil.sleep(1000);
         return TFXUtil.fx(() -> tableDisplay.getDataPosition(row, col));
+    }
+
+    private PointQuery pointOfVisibleNode(String query) {
+        NodeQuery nodeQuery = TFXUtil.fx(() -> lookup(query));
+        Node node = queryVisibleNode(nodeQuery, "the query \"" + query + "\"");
+        return point(node);
+    }
+    private Node queryVisibleNode(NodeQuery nodeQuery, String queryDescription) {
+        Set<Node> resultNodes = nodeQuery.queryAll();
+        if (resultNodes.isEmpty()) {
+            throw new FxRobotException(queryDescription + " returned no nodes.");
+        }
+        Optional<Node> resultNode = fromNodes(resultNodes).match(isVisible()).tryQuery();
+        if (!resultNode.isPresent()) {
+            throw new FxRobotException(queryDescription + " returned " + resultNodes.size() + " nodes" +
+                ", but no nodes were visible.");
+        }
+        return resultNode.get();
     }
 
     default CellPosition keyboardMoveTo(VirtualGrid virtualGrid, TableManager tableManager, TableId tableId, @TableDataRowIndex int row) throws UserException
