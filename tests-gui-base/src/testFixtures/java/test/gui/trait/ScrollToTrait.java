@@ -204,8 +204,8 @@ public interface ScrollToTrait extends FxRobotInterface, FocusOwnerTrait, QueryT
         }));
         if (usingMenu)
         {
-            Log.debug("Bounds for id-menu-view off-thread " + bounds("#id-menu-view").query());
-            Log.debug("Bounds for id-menu-view on-thread " + TFXUtil.fx((() -> bounds("#id-menu-view").query())));
+            Log.debug("Bounds for id-menu-view off-thread " + bounds(lookup("#id-menu-view").<Node>query()).query());
+            Log.debug("Bounds for id-menu-view on-thread " + TFXUtil.fx((() -> bounds("#id-menu-view").<Node>query())));
             Log.debug("Point for id-menu-view off-thread " + pointOfVisibleNode("#id-menu-view").query());
             Log.debug("Point for id-menu-view on-thread " + TFXUtil.fx((() -> pointOfVisibleNode("#id-menu-view").query())));
             clickOn("#id-menu-view").clickOn(".id-menu-view-goto-row");
