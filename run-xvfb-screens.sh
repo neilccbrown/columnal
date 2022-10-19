@@ -37,3 +37,8 @@ Xvfb :42 \
   -screen 14 1920x1200x24 \
   -screen 15 1920x1200x24 \
   &
+
+xclock -display :42.0 -digital -update 1 -strftime ':42.0 %Y-%m-%d %H:%M:%S' -geometry +0+0 &
+xclock -display :42.1 -digital -update 1 -strftime ':42.1 %Y-%m-%d %H:%M:%S' -geometry +0+0 &
+xclock -display :42.2 -digital -update 1 -strftime ':42.2 %Y-%m-%d %H:%M:%S' -geometry +0+0 &
+xclock -display :42.3 -digital -update 1 -strftime ':42.3 %Y-%m-%d %H:%M:%S' -geometry +0+0 &
