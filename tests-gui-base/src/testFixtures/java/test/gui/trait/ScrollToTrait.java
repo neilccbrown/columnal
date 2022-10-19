@@ -40,6 +40,7 @@ import org.testfx.service.query.PointQuery;
 import test.gui.TFXUtil;
 import xyz.columnal.data.CellPosition;
 import xyz.columnal.data.TBasicUtil;
+import xyz.columnal.error.InternalException;
 import xyz.columnal.id.ColumnId;
 import xyz.columnal.id.DataItemPosition;
 import xyz.columnal.data.Table;
@@ -204,8 +205,16 @@ public interface ScrollToTrait extends FxRobotInterface, FocusOwnerTrait, QueryT
         }));
         if (usingMenu)
         {
-            Log.debug("Bounds for id-menu-view on-thread " + TFXUtil.fx((() -> bounds(lookup("#id-menu-view").<Node>query()).query())));
-            Log.debug("Point for id-menu-view on-thread " + TFXUtil.fx((() -> pointOfVisibleNode("#id-menu-view").query())));
+            Log.debug("Bounds for id-menu-view on-thread " + TFXUtil.fx(new TFXUtil.FXPlatformSupplierEx<Bounds>()
+            {
+                @Override
+                @OnThread(value = Tag.FXPlatform, ignoreParent = true)
+                public Bounds call() throws InternalException, UserException
+                {
+                    return ScrollToTrait.this.bounds(ScrollToTrait.this.lookup("#id-menu-view").<Node>query()).query();
+                }
+            }));
+            Log.debug("Point for id-menu-view on-thread " + pointOfVisibleNode("#id-menu-view").query());
             clickOn("#id-menu-view").clickOn(".id-menu-view-goto-row");
             assertShowing("Zero-based row: " + row, ".ok-button");
             TFXUtil.sleep(200);
