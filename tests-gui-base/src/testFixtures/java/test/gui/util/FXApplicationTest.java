@@ -280,10 +280,15 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
             && SystemUtils.IS_OS_LINUX)
         {
             // Work around bug on Linux xvfb which gets the menu bounds wrong:
-            return point(node).atOffset(0, TFXUtil.fx(() -> -node.prefHeight(Double.MAX_VALUE))); 
+            PointQuery pointQuery = point(node).atOffset(0, TFXUtil.fx(() -> -node.getBoundsInLocal().getHeight()));
+            Log.debug("Working around xvfb bug for menus, clicking at : " + TFXUtil.fx(() -> pointQuery.query()));
+            return pointQuery; 
         }
         else
+        {
+            Log.debug("Getting point of " + node.getClass().getName());
             return point(node);
+        }
     }
     private Node queryVisibleNode(NodeQuery nodeQuery, String queryDescription) {
         Set<Node> resultNodes = nodeQuery.queryAll();
