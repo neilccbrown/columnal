@@ -40,6 +40,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
+import org.apache.commons.lang3.SystemUtils;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Rule;
@@ -273,7 +274,16 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
     private PointQuery pointOfVisibleNode(String query) {
         NodeQuery nodeQuery = TFXUtil.fx(() -> lookup(query));
         Node node = queryVisibleNode(nodeQuery, "the query \"" + query + "\"");
-        return point(node);
+        if (node.getClass().getName().startsWith("MenuBarButton")
+            && !GraphicsEnvironment.isHeadless()
+            && !SystemUtils.isJavaAwtHeadless()
+            && SystemUtils.IS_OS_LINUX)
+        {
+            // Work around bug on Linux xvfb which gets the menu bounds wrong:
+            return point(node).atOffset(0, -node.prefHeight(Double.MAX_VALUE)); 
+        }
+        else
+            return point(node);
     }
     private Node queryVisibleNode(NodeQuery nodeQuery, String queryDescription) {
         Set<Node> resultNodes = nodeQuery.queryAll();
