@@ -280,7 +280,7 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
             && SystemUtils.IS_OS_LINUX)
         {
             // Work around bug on Linux xvfb which gets the menu bounds wrong:
-            return point(node).atOffset(0, -node.prefHeight(Double.MAX_VALUE)); 
+            return point(node).atOffset(0, TFXUtil.fx(() -> -node.prefHeight(Double.MAX_VALUE))); 
         }
         else
             return point(node);
