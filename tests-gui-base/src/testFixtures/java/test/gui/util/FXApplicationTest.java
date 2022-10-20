@@ -274,7 +274,7 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
     private PointQuery pointOfVisibleNode(String query) {
         NodeQuery nodeQuery = TFXUtil.fx(() -> lookup(query));
         Node node = queryVisibleNode(nodeQuery, "the query \"" + query + "\"");
-        if (node.getClass().getName().startsWith("MenuBarButton")
+        if (node.getClass().getName().contains("MenuBarButton")
             && !GraphicsEnvironment.isHeadless()
             && !SystemUtils.isJavaAwtHeadless()
             && SystemUtils.IS_OS_LINUX)
