@@ -170,6 +170,7 @@ subprojects { subproject ->
                     '-Dmonocle.platform=Headless',
                     '-Dheadless.geometry=1920x1200-32'] : [
                     // Headed:
+                    '-Djava.awt.headless=true',
                     '-Dtestfx.robot=glass',
                     '-Dprism.text=t2k',
                   ])
