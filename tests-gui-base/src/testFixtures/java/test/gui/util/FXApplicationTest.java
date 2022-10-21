@@ -277,7 +277,7 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
         if (node.getClass().getName().contains("MenuBarButton")
             && !GraphicsEnvironment.isHeadless()
             && !SystemUtils.isJavaAwtHeadless()
-            && SystemUtils.IS_OS_LINUX)
+            && SystemUtils.IS_OS_LINUX && false)
         {
             // Work around bug on Linux xvfb which gets the menu bounds wrong:
             PointQuery pointQuery = point(node).atOffset(0, TFXUtil.fx(() -> -node.getBoundsInLocal().getHeight()));
