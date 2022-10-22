@@ -71,6 +71,7 @@ import java.awt.GraphicsEnvironment;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Map;
 import java.util.Optional;
@@ -306,6 +307,13 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
     public FxRobotInterface clickOn(String query, MouseButton... buttons)
     {
         return super.clickOn(TFXUtil.fx(() -> pointOfVisibleNode(query)), buttons);
+    }
+
+    @Override
+    public FxRobot push(KeyCode... combination)
+    {
+        Log.debug("Pushing: " + Utility.listToString(Arrays.asList(combination)));
+        return super.push(combination);
     }
 
     @Override
