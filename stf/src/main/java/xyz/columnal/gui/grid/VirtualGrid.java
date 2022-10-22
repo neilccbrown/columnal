@@ -97,6 +97,7 @@ import xyz.columnal.gui.stable.ScrollBindable;
 import xyz.columnal.gui.stable.ScrollGroup;
 import xyz.columnal.gui.stable.ScrollGroup.ScrollLock;
 import xyz.columnal.gui.stable.ScrollGroup.Token;
+import xyz.columnal.log.Log;
 import xyz.columnal.styled.StyledString;
 import threadchecker.OnThread;
 import threadchecker.Tag;
@@ -1325,6 +1326,7 @@ public final class VirtualGrid extends GridWithColumnWidths implements ScrollBin
                     bindS(KeyCode.PAGE_DOWN, (shift, c) -> c.move(shift, calcPageHeight(), 0)),
                     InputMap.<Event, KeyEvent>consume(EventPattern.<Event, KeyEvent>anyOf(EventPattern.keyPressed(KeyCode.F11), EventPattern.keyPressed(KeyCode.C, KeyCombination.SHORTCUT_DOWN)), e -> {
                         @Nullable CellSelection focusedCellPosition = selection.get();
+                        Log.debug("Copy triggered on " + focusedCellPosition);
                         if (focusedCellPosition != null)
                             focusedCellPosition.doCopy();
                         e.consume();
