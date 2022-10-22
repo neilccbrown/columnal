@@ -363,6 +363,7 @@ public abstract class TextEditorBase extends Region
         CaretAndSelectionNodes cs = caretAndSelectionNodes;
         if (focused)
         {
+            Log.logStackTrace("Editor focused");
             getChildren().setAll(cs.backgroundsPane, cs.errorUnderlinePane, textFlow, cs.inverterPane, cs.selectionPane, cs.caretShape, cs.fadeOverlay);
             cs.focusChanged(true);
         }
