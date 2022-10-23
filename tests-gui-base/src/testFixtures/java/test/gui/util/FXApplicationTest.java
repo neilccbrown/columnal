@@ -313,7 +313,8 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
     public FxRobot push(KeyCode... combination)
     {
         Log.debug("Pushing: " + Utility.listToString(Arrays.asList(combination)));
-        return super.push(combination);
+        Log.debugDuration("Pushed: "  + Utility.listToString(Arrays.asList(combination)), () -> super.push(combination));
+        return this;
     }
 
     @Override
