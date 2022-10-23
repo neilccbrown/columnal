@@ -65,7 +65,7 @@ public interface FocusOwnerTrait extends FxRobotInterface
                 Stage.class)
             .collect(Collectors.toList()));
         if (curWindow.isEmpty())
-            throw new RuntimeException("No focused window?!");
+            throw new RuntimeException("No focused window?!  Options were: " + Utility.listToString(listWindows()));
         // It seems that (only in Monocle?) multiple windows can claim to
         // have focus when a main window shows sub-dialogs, so we have to manually
         // try to work out the real focused window:
