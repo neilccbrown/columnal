@@ -57,6 +57,23 @@ DISPLAY=:42.13 icewm &
 DISPLAY=:42.14 icewm &
 DISPLAY=:42.15 icewm &
 
+DISPLAY=:42.0 xset -display :42.0 r off
+DISPLAY=:42.1 xset -display :42.1 r off
+DISPLAY=:42.2 xset -display :42.2 r off
+DISPLAY=:42.3 xset -display :42.3 r off
+DISPLAY=:42.4 xset -display :42.4 r off
+DISPLAY=:42.5 xset -display :42.5 r off
+DISPLAY=:42.6 xset -display :42.6 r off
+DISPLAY=:42.7 xset -display :42.7 r off
+DISPLAY=:42.8 xset -display :42.8 r off
+DISPLAY=:42.9 xset -display :42.9 r off
+DISPLAY=:42.10 xset -display :42.10 r off
+DISPLAY=:42.11 xset -display :42.11 r off
+DISPLAY=:42.12 xset -display :42.12 r off
+DISPLAY=:42.13 xset -display :42.13 r off
+DISPLAY=:42.14 xset -display :42.14 r off
+DISPLAY=:42.15 xset -display :42.15 r off
+
 xclock -display :42.0 -digital -update 1 -strftime ':42.0 %Y-%m-%d %H:%M:%S' -geometry +100+100 -fg white -bg black &
 xclock -display :42.1 -digital -update 1 -strftime ':42.1 %Y-%m-%d %H:%M:%S' -geometry +100+100 -fg white -bg black &
 xclock -display :42.2 -digital -update 1 -strftime ':42.2 %Y-%m-%d %H:%M:%S' -geometry +100+100 -fg white -bg black &
