@@ -1338,7 +1338,7 @@ public final class VirtualGrid extends GridWithColumnWidths implements ScrollBin
                         e.consume();
                     }),
                     InputMap.<Event, KeyEvent>consume(EventPattern.<Event, KeyEvent>anyOf(EventPattern.keyPressed(KeyCode.ENTER), EventPattern.keyPressed(KeyCode.SPACE)), e -> {
-                        Log.debug("Received: " + e.getCode());
+                        Log.debug("Received: " + e.getCode() + " on " + this);
                         @Nullable CellSelection sel = selection.get();
                         if (sel != null)
                         {

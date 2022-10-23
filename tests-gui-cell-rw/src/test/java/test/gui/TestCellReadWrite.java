@@ -106,7 +106,7 @@ public class TestCellReadWrite extends FXApplicationTest implements ScrollToTrai
         {
             // Random table:
             Table table = pickRandomTable(r, allTables);
-            System.out.println("Copying from table: " + table.getId());
+            Log.debug("Copying from table: " + table.getId() + " " + Thread.currentThread().getId());
             // Random location in table:
             @TableDataColIndex int column = DataItemPosition.col(r.nextInt(table.getData().getColumns().size()));
             int tableLen = table.getData().getLength();
