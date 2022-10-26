@@ -295,6 +295,7 @@ class TCScanner extends TreePathScanner<Void, Void>
         methodAnns.add(new MethodRef("com.pholser.junit.quickcheck.generator.Gen", "generate", new LocatedTag(Tag.Simulation, false, true, "Quickcheck")));
         
         // TestFX
+        /*
         for (String methodName : Arrays.asList(
             "targetWindow",
             "listWindows",
@@ -317,6 +318,7 @@ class TCScanner extends TreePathScanner<Void, Void>
         {
             methodAnns.add(new MethodRef(queryClass, "lookup", new LocatedTag(Tag.FXPlatform, false, true, "TestFX")));
         }
+        */
     }
 
     private static String typeToName(PathAnd<ClassTree> t)
