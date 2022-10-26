@@ -95,7 +95,7 @@ public class TestCellReadWrite extends FXApplicationTest implements ScrollToTrai
             @From(GenRandom.class) Random r) throws Exception
     {
         Log.debug("propCheckDataRead: opening table into " + windowToUse + " " + Thread.currentThread().getId());
-        MainWindowActions details = TAppUtil.openDataAsTable(new Stage(), src.mgr).get();
+        MainWindowActions details = TAppUtil.openDataAsTable(TFXUtil.fx(Stage::new), src.mgr).get();
         TFXUtil.sleep(1000);
         tableManager = details._test_getTableManager();
         virtualGrid = details._test_getVirtualGrid();
@@ -128,7 +128,7 @@ public class TestCellReadWrite extends FXApplicationTest implements ScrollToTrai
             @From(GenRandom.class) Random r) throws Exception
     {
 
-        MainWindowActions details = TAppUtil.openDataAsTable(new Stage(), src.mgr).get();
+        MainWindowActions details = TAppUtil.openDataAsTable(TFXUtil.fx(Stage::new), src.mgr).get();
         TFXUtil.sleep(1000);
         tableManager = details._test_getTableManager();
         virtualGrid = details._test_getVirtualGrid();
@@ -164,7 +164,7 @@ public class TestCellReadWrite extends FXApplicationTest implements ScrollToTrai
             @From(GenValueSpecifiedType.class) GenValueSpecifiedType.ValueGenerator valueGenerator) throws Exception
     {
 
-        MainWindowActions details = TAppUtil.openDataAsTable(new Stage(), src.mgr).get();
+        MainWindowActions details = TAppUtil.openDataAsTable(TFXUtil.fx(Stage::new), src.mgr).get();
         TFXUtil.sleep(3000);
         tableManager = details._test_getTableManager();
         virtualGrid = details._test_getVirtualGrid();
@@ -281,7 +281,7 @@ public class TestCellReadWrite extends FXApplicationTest implements ScrollToTrai
             @NumTables(minTables = 2, maxTables = 4) @From(GenImmediateData.class) GenImmediateData.ImmediateData_Mgr src,
             @From(GenRandom.class) Random r) throws Exception
     {
-        MainWindowActions details = TAppUtil.openDataAsTable(new Stage(), src.mgr).get();
+        MainWindowActions details = TAppUtil.openDataAsTable(TFXUtil.fx(Stage::new), src.mgr).get();
         TFXUtil.sleep(1000);
         tableManager = details._test_getTableManager();
         virtualGrid = details._test_getVirtualGrid();
