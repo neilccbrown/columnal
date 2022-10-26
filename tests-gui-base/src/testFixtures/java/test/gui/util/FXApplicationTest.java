@@ -20,6 +20,8 @@
 
 package test.gui.util;
 
+import com.eponymouse.testjavafx.FxRobot;
+import com.eponymouse.testjavafx.FxRobotInterface;
 import com.sun.javafx.application.ParametersImpl;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -46,11 +48,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Rule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
-import org.testfx.api.FxRobot;
 import org.testfx.api.FxRobotException;
-import org.testfx.api.FxRobotInterface;
-import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.robot.Motion;
 import org.testfx.service.query.NodeQuery;
 import org.testfx.service.query.PointQuery;
 import org.testfx.util.WaitForAsyncUtils;
@@ -81,7 +79,7 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertNull;
 import static org.testfx.util.NodeQueryUtils.isVisible;
 
-public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrait, ScreenshotTrait, QueryTrait
+public class FXApplicationTest extends com.eponymouse.testjavafx.junit4.ApplicationTest implements FocusOwnerTrait, ScreenshotTrait, QueryTrait
 {
     @Rule
     public TestWatcher screenshotOnFail = new TestWatcher()
@@ -161,7 +159,7 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
         // Don't run now because can upset the loading timeout:
         FXUtility.runAfter(Main::initialise);
         FXUtility._test_setTestingMode();
-        targetWindow(stage);
+        //targetWindow(stage);
         
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(60),e -> {
@@ -244,17 +242,10 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
     // return true from isFocused(), write can write to the wrong
     // window.  So we override the methods and use our own
     // getRealFocusedWindow() method to find the right window.
-    
+    /*
     @Override
     public FxRobot write(String text, int sleepMillis)
     {
-        /*
-        Log.debug("Writing: " + text + " to " + TFXUtil.fx(() -> {
-            Window window = getRealFocusedWindow();
-            Node focusNode = window.getScene().getFocusOwner();
-            return window.toString() + (window instanceof Stage ? " " + ((Stage)window).getTitle() : "") + " @ " + focusNode;
-        }));
-         */
         Scene scene = TFXUtil.fx(() -> getRealFocusedWindow().getScene());
         text.chars().forEach(c -> {
             robotContext().getBaseRobot().typeKeyboard(scene, determineKeyCode(c), Utility.codePointToString(c));
@@ -262,6 +253,7 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
         });
         return this;
     }
+     */
 
     private KeyCode determineKeyCode(int character)
     {
@@ -271,62 +263,12 @@ public class FXApplicationTest extends ApplicationTest implements FocusOwnerTrai
         return key;
     }
 
-    // TODO fix this properly in the thread checker
-    private PointQuery pointOfVisibleNode(String query) {
-        NodeQuery nodeQuery = TFXUtil.fx(() -> lookup(query));
-        Node node = queryVisibleNode(nodeQuery, "the query \"" + query + "\"");
-        if (node.getClass().getName().contains("MenuBarButton")
-            && !GraphicsEnvironment.isHeadless()
-            && !SystemUtils.isJavaAwtHeadless()
-            && SystemUtils.IS_OS_LINUX && false)
-        {
-            // Work around bug on Linux xvfb which gets the menu bounds wrong:
-            PointQuery pointQuery = point(node).atOffset(0, TFXUtil.fx(() -> -node.getBoundsInLocal().getHeight()));
-            Log.debug("Working around xvfb bug for menus, clicking at : " + TFXUtil.fx(() -> pointQuery.query()));
-            return pointQuery; 
-        }
-        else
-        {
-            Log.debug("Getting point of " + node.getClass().getName());
-            return point(node);
-        }
-    }
-    private Node queryVisibleNode(NodeQuery nodeQuery, String queryDescription) {
-        Set<Node> resultNodes = nodeQuery.queryAll();
-        if (resultNodes.isEmpty()) {
-            throw new FxRobotException(queryDescription + " returned no nodes.");
-        }
-        Optional<Node> resultNode = fromNodes(resultNodes).match(isVisible()).tryQuery();
-        if (!resultNode.isPresent()) {
-            throw new FxRobotException(queryDescription + " returned " + resultNodes.size() + " nodes" +
-                ", but no nodes were visible.");
-        }
-        return resultNode.get();
-    }
-    @Override
-    public FxRobotInterface clickOn(String query, MouseButton... buttons)
-    {
-        return super.clickOn(TFXUtil.fx(() -> pointOfVisibleNode(query)), buttons);
-    }
-
     @Override
     public FxRobot push(KeyCode... combination)
     {
         Log.debug("Pushing: " + Utility.listToString(Arrays.asList(combination)));
         Log.debugDuration("Pushed: "  + Utility.listToString(Arrays.asList(combination)), () -> super.push(combination));
         return this;
-    }
-
-    @Override
-    public FxRobot write(String text)
-    {
-        return write(text, 0);
-    }
-
-    @Override
-    public FxRobot write(char character)
-    {
-        return write(Character.toString(character));
     }
 
     public FxRobotInterface showContextMenu(String nodeQuery)

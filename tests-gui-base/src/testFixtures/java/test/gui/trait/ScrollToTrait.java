@@ -22,6 +22,7 @@ package test.gui.trait;
 
 import annotation.units.TableDataColIndex;
 import annotation.units.TableDataRowIndex;
+import com.eponymouse.testjavafx.node.NodeQuery;
 import javafx.geometry.Bounds;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Orientation;
@@ -34,8 +35,7 @@ import javafx.scene.input.MouseButton;
 import org.apache.commons.lang3.SystemUtils;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.testfx.api.FxRobotException;
-import org.testfx.api.FxRobotInterface;
-import org.testfx.service.query.NodeQuery;
+import com.eponymouse.testjavafx.FxRobotInterface;
 import org.testfx.service.query.PointQuery;
 import test.gui.TFXUtil;
 import xyz.columnal.data.CellPosition;
@@ -205,7 +205,7 @@ public interface ScrollToTrait extends FxRobotInterface, FocusOwnerTrait, QueryT
         }));
         if (usingMenu)
         {
-            Log.debug("Bounds for id-menu-view on-thread " + TFXUtil.fx(new TFXUtil.FXPlatformSupplierEx<Bounds>()
+            /*Log.debug("Bounds for id-menu-view on-thread " + TFXUtil.fx(new TFXUtil.FXPlatformSupplierEx<Bounds>()
             {
                 @Override
                 @OnThread(value = Tag.FXPlatform, ignoreParent = true)
@@ -213,8 +213,8 @@ public interface ScrollToTrait extends FxRobotInterface, FocusOwnerTrait, QueryT
                 {
                     return ScrollToTrait.this.bounds(ScrollToTrait.this.lookup("#id-menu-view").<Node>query()).query();
                 }
-            }));
-            Log.debug("Point for id-menu-view on-thread " + pointOfVisibleNode("#id-menu-view").query());
+            }));*/
+            //Log.debug("Point for id-menu-view on-thread " + pointOfVisibleNode("#id-menu-view").query());
             clickOn("#id-menu-view").clickOn(".id-menu-view-goto-row");
             assertShowing("Zero-based row: " + row, ".ok-button");
             TFXUtil.sleep(200);
@@ -228,17 +228,12 @@ public interface ScrollToTrait extends FxRobotInterface, FocusOwnerTrait, QueryT
         return TFXUtil.fx(() -> tableDisplay.getDataPosition(row, col));
     }
 
-    private PointQuery pointOfVisibleNode(String query) {
-        NodeQuery nodeQuery = TFXUtil.fx(() -> lookup(query));
-        Node node = queryVisibleNode(nodeQuery, "the query \"" + query + "\"");
-        return point(node);
-    }
     private Node queryVisibleNode(NodeQuery nodeQuery, String queryDescription) {
         Set<Node> resultNodes = nodeQuery.queryAll();
         if (resultNodes.isEmpty()) {
             throw new FxRobotException(queryDescription + " returned no nodes.");
         }
-        Optional<Node> resultNode = fromNodes(resultNodes).match(isVisible()).tryQuery();
+        Optional<Node> resultNode = fromNodes(resultNodes).filter(isVisible()).tryQuery();
         if (!resultNode.isPresent()) {
             throw new FxRobotException(queryDescription + " returned " + resultNodes.size() + " nodes" +
                 ", but no nodes were visible.");

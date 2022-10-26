@@ -24,7 +24,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import org.apache.commons.lang3.SystemUtils;
-import org.testfx.api.FxRobotInterface;
+import com.eponymouse.testjavafx.FxRobotInterface;
 import test.gui.TFXUtil;
 import test.gui.trait.FocusOwnerTrait;
 import threadchecker.OnThread;

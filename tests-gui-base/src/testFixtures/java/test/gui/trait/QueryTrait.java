@@ -1,9 +1,9 @@
 package test.gui.trait;
 
+import com.eponymouse.testjavafx.node.NodeQuery;
 import javafx.scene.Node;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.testfx.api.FxRobotInterface;
-import org.testfx.service.query.NodeQuery;
+import com.eponymouse.testjavafx.FxRobotInterface;
 import test.gui.TFXUtil;
 import threadchecker.OnThread;
 import threadchecker.Tag;
@@ -78,7 +78,7 @@ public interface QueryTrait extends FxRobotInterface
     @SuppressWarnings("threadchecker") // The from method is actually thread-safe, having looked at the source code
     public default NodeQuery fromNodes(Collection<Node> nodes)
     {
-        return from(nodes);
+        return from(nodes.toArray(Node[]::new));
     }
     
     @OnThread(Tag.Any)

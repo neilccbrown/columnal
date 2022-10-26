@@ -20,6 +20,8 @@
 
 package test.gui.expressionEditor;
 
+import com.eponymouse.testjavafx.FxRobot;
+import com.eponymouse.testjavafx.FxRobotInterface;
 import com.google.common.collect.ImmutableList;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
@@ -34,7 +36,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.testfx.api.FxRobot;
 import org.testfx.util.WaitForAsyncUtils;
 import xyz.columnal.data.CellPosition;
 import xyz.columnal.id.ColumnId;
@@ -76,7 +77,7 @@ public class TestExpressionEditor extends BaseTestExpressionEditorEntry implemen
 {
     @Override
     @OnThread(value = Tag.Any)
-    public FxRobot write(char character)
+    public FxRobotInterface write(char character)
     {
         Log.normal("Pressing: {{{" + character + "}}}");
         return super.write(character);
@@ -84,7 +85,7 @@ public class TestExpressionEditor extends BaseTestExpressionEditorEntry implemen
 
     @Override
     @OnThread(value = Tag.Any)
-    public FxRobot write(String text)
+    public FxRobotInterface write(String text)
     {
         //Log.normal("Writing: {{{" + text + "}}}");
         return super.write(text);
@@ -92,7 +93,7 @@ public class TestExpressionEditor extends BaseTestExpressionEditorEntry implemen
 
     @Override
     @OnThread(value = Tag.Any)
-    public FxRobot write(String text, int sleepMillis)
+    public FxRobotInterface write(String text, int sleepMillis)
     {
         Log.normal("Writing: {{{" + text + "}}}");
         return super.write(text, sleepMillis);

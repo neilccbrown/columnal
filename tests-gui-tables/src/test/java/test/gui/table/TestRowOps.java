@@ -22,6 +22,7 @@ package test.gui.table;
 
 import annotation.qual.Value;
 import annotation.units.TableDataRowIndex;
+import com.eponymouse.testjavafx.node.NodeQuery;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.pholser.junit.quickcheck.From;
@@ -32,7 +33,6 @@ import javafx.scene.control.Label;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.runner.RunWith;
-import org.testfx.service.query.NodeQuery;
 import test.gui.TAppUtil;
 import test.gui.TFXUtil;
 import xyz.columnal.data.*;

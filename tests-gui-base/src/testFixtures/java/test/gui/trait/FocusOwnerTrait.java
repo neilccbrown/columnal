@@ -24,7 +24,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.testfx.api.FxRobotInterface;
+import com.eponymouse.testjavafx.FxRobotInterface;
 import test.gui.TFXUtil;
 import threadchecker.OnThread;
 import threadchecker.Tag;
@@ -93,7 +93,7 @@ public interface FocusOwnerTrait extends FxRobotInterface
     @OnThread(Tag.Any) 
     default FxRobotInterface correctTargetWindow()
     {
-        return TFXUtil.fx(() -> targetWindow(getRealFocusedWindow()));
+        return this; // TFXUtil.fx(() -> targetWindow(getRealFocusedWindow()));
     }
     
     default public void checkDialogFocused(String msg)
