@@ -148,7 +148,7 @@ public class TestBlankMainWindow extends FXApplicationTest implements ComboUtilT
     public void testNewClick()
     {
         testStartState();
-        clickOn("#id-menu-project").clickOn(".id-menu-project-new");
+        clickOn("#id-menu-project").moveTo(".id-menu-project-new", Motion.VERTICAL_FIRST).clickOn();
         assertEquals(2, TFXUtil.fx(() -> MainWindow._test_getViews()).size());
         assertTrue(TFXUtil.fx(() -> MainWindow._test_getViews()).values().stream().allMatch(Stage::isShowing));
     }

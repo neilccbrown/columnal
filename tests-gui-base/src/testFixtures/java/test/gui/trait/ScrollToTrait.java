@@ -22,6 +22,7 @@ package test.gui.trait;
 
 import annotation.units.TableDataColIndex;
 import annotation.units.TableDataRowIndex;
+import com.eponymouse.testjavafx.Motion;
 import com.eponymouse.testjavafx.node.NodeQuery;
 import javafx.geometry.Bounds;
 import javafx.geometry.HorizontalDirection;
@@ -215,7 +216,7 @@ public interface ScrollToTrait extends FxRobotInterface, FocusOwnerTrait, QueryT
                 }
             }));*/
             //Log.debug("Point for id-menu-view on-thread " + pointOfVisibleNode("#id-menu-view").query());
-            clickOn("#id-menu-view").clickOn(".id-menu-view-goto-row");
+            clickOn("#id-menu-view").moveTo(".id-menu-view-goto-row", Motion.VERTICAL_FIRST).clickOn();
             assertShowing("Zero-based row: " + row, ".ok-button");
             TFXUtil.sleep(200);
             // UI expects one-based:
