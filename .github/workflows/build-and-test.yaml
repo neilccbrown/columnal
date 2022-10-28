@@ -37,6 +37,7 @@ jobs:
           name: screen-recordings
           path: |
             **/*.mp4
+            **/*.ffmpeg.log
       - name: Archive any heap dumps
         if: always()
         uses: actions/upload-artifact@v3
