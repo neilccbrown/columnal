@@ -161,11 +161,11 @@ public interface ScrollToTrait extends FxRobotInterface, FocusOwnerTrait, QueryT
 
             push(KeyCode.SHORTCUT, KeyCode.HOME);
             // First go to correct row:
-            for (int i = 0; i < (target.rowIndex - 1) / pageHeight; i++)
+            for (int i = 0; i < target.rowIndex / pageHeight; i++)
             {
                 push(KeyCode.PAGE_DOWN);
             }
-            for (int i = 0; i < (target.rowIndex - 1) % pageHeight; i++)
+            for (int i = 0; i < target.rowIndex % pageHeight; i++)
             {
                 push(KeyCode.DOWN);
             }
