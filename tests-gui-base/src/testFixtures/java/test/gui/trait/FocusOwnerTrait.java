@@ -56,6 +56,8 @@ public interface FocusOwnerTrait extends FxRobotInterface
     @OnThread(Tag.FXPlatform)
     default Window getRealFocusedWindow()
     {
+        if (true)
+            return targetWindow();
         // The only children of Window are PopupWindow, Stage and EmbeddedWindow.
         // We are not interested in popup or embedded so we may as well
         // filter down to Stage:
