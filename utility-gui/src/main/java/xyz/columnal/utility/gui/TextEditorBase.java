@@ -127,6 +127,7 @@ public abstract class TextEditorBase extends Region
             inverterPane = new Pane(inverter);
             inverterPane.getStyleClass().add("inverter-pane");
             inverterPane.setBlendMode(BlendMode.DIFFERENCE);
+            inverterPane.setMouseTransparent(true);
             
             errorUnderlinePane = new Pane();
             errorUnderlinePane.setMouseTransparent(true);
