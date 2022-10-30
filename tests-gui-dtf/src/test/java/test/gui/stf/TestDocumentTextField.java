@@ -142,7 +142,7 @@ public class TestDocumentTextField extends FXApplicationTest
             {
                 Log.debug("Dragging from " + aClick.get() + " to " + bClick.get());
                 drag(aClick.get());
-                moveBy(0, 20);
+                moveBy(0, 40);
                 dropTo(bClick.get());
                 TFXUtil.sleep(200);
                 assertEquals("Selecting " + aPos + " to " + bPos, aPos, getFieldAnchorPos());

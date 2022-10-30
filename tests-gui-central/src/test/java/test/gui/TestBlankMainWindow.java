@@ -325,7 +325,7 @@ public class TestBlankMainWindow extends FXApplicationTest implements ComboUtilT
                 dataHistory.remove(dataHistory.size() - 1);
                 // Click the project menu so we can see in the video replay how recent the save was: 
                 clickOn("#id-menu-project");
-                clickOn("#id-menu-edit").moveBy(5, 0);
+                moveTo("#id-menu-edit").moveBy(5, 0);
                 TFXUtil.sleep(500);
                 moveTo(".id-menu-edit-undo", Motion.VERTICAL_FIRST).clickOn();
                 TFXUtil.sleep(4000);
