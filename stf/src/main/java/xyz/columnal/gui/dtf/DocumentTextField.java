@@ -9,12 +9,12 @@
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
  *
- * Columnal is distributed in the hope that it will be useful, but WITHOUT 
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+ * Columnal is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
  * more details.
  *
- * You should have received a copy of the GNU General Public License along 
+ * You should have received a copy of the GNU General Public License along
  * with Columnal. If not, see <https://www.gnu.org/licenses/>.
  */
 
@@ -93,7 +93,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
         this.document = new ReadOnlyDocument("");
         anchorPosition = document.trackPosition(0, Bias.FORWARD, FXUtility.mouse(this)::queueUpdateCaretShape);
         caretPosition = document.trackPosition(0, Bias.FORWARD, FXUtility.mouse(this)::queueUpdateCaretShape);
-        
+
         Nodes.addInputMap(FXUtility.mouse(this), InputMap.<Event>sequence(
             InputMap.<MouseEvent>consume(MouseEvent.ANY, FXUtility.mouse(this)::mouseEvent),
             InputMap.<KeyEvent>consume(KeyEvent.ANY, FXUtility.keyboard(this)::keyboardEvent)
@@ -127,7 +127,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
     {
         //if (mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED)
         //    Log.debug("Got mouse event: " + mouseEvent);
-        
+
         if ((mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED
             //|| (mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED && mouseEvent.isStillSincePress())
             || mouseEvent.getEventType() == MouseEvent.MOUSE_DRAGGED)
@@ -137,6 +137,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
             // Position the caret at the clicked position:
 
             HitInfo hitInfo = hitTest(mouseEvent.getX(), mouseEvent.getY());
+            Log.debug("Hit info: " + hitInfo);
             if (hitInfo == null)
                 return;
             // Focusing may change content so important to hit-test first:
@@ -209,7 +210,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
                 if (!keyEvent.isShiftDown())
                     moveAnchorToCaret();
             }
-            
+
             if (keyEvent.getCode() == KeyCode.HOME)
             {
                 caretPosition.moveTo(0);
@@ -222,7 +223,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
                 if (!keyEvent.isShiftDown())
                     moveAnchorToCaret();
             }
-            
+
             if (keyEvent.getCode() == KeyCode.A && keyEvent.isShortcutDown())
             {
                 anchorPosition.moveTo(0);
@@ -266,7 +267,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
             {
                 document.replaceText(caretPosition.getPosition(), caretPosition.getPosition() + 1, "");
             }
-            
+
             if (keyEvent.getCode() == KeyCode.ESCAPE || keyEvent.getCode() == KeyCode.ENTER || keyEvent.getCode() == KeyCode.TAB)
             {
                 document.defocus(keyEvent.getCode());
@@ -306,7 +307,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
         moveAnchorToCaret();
         documentChanged(this.document);
     }
-    
+
     private void queueUpdateCaretShape()
     {
         if (caretAndSelectionNodes != null)
@@ -332,13 +333,13 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
             return text;
         }).collect(ImmutableList.<Text>toImmutableList());
     }
-    
+
     @OnThread(Tag.FXPlatform)
     public @CanonicalLocation int getAnchorPosition()
     {
         return anchorPosition.getPosition();
     }
-    
+
     @OnThread(Tag.FXPlatform)
     public @CanonicalLocation int getCaretPosition()
     {
@@ -398,12 +399,12 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
     {
         return document.isEditable();
     }
-    
+
     public void home()
     {
         caretPosition.moveTo(0);
     }
-    
+
     public void moveTo(Point2D point2D)
     {
         try
@@ -417,7 +418,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
             Log.log(e);
         }
     }
-    
+
     public String _test_getGraphicalText()
     {
         return textFlow.getChildren().stream().filter(t -> t instanceof Text).map(n -> ((Text)n).getText()).collect(Collectors.joining());
@@ -472,7 +473,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
                     leftToRetain = 0;
                 }
             }
-            
+
             index += 1;
         }
         // Mop up any empty spans:
@@ -482,10 +483,10 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
             if (styledSpan.getSecond().isEmpty())
                 iterator.remove();
         }
-        
+
         return styledSpans;
     }
-    
+
     @SuppressWarnings("unchecked")
     public <T> @Nullable RecogniserDocument<T> getRecogniserDocument(Class<T> itemClass)
     {
@@ -501,7 +502,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
         textFlow.setTextAlignment(focused ? TextAlignment.LEFT : unfocusedAlignment);
         requestLayout();
     }
-    
+
     private void setExpanded(boolean expanded)
     {
         FXUtility.setPseudoclass(this, "expanded", expanded);
@@ -519,7 +520,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
         anchorPosition.moveTo(0);
         caretPosition.moveTo(document.getLength());
     }
-    
+
     public void replaceAll(String newContent, boolean save)
     {
         if (save)
@@ -603,7 +604,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
         }
         else
         {
-            
+
             if (idealWidth != null)
             {
                 // If ideal width is set, size exactly:
@@ -615,10 +616,10 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
                 // We avoid needlessly making TextFlows which are thousands of pixels
                 // wide by restricting to our own width plus some.
                 // (We don't use our own width because this causes text wrapping
-                // of long words, but we actually want to see those truncated) 
+                // of long words, but we actually want to see those truncated)
                 textFlow.resizeRelocate(-horizTranslation, -vertTranslation, Math.min(getWidth() + 300, wholeTextWidth + 30.0), getHeight());
             }
-            
+
         }
         //Log.debug("Text flow: " + textFlow.getWidth() + ", " + textFlow.getHeight() + " for text: " + _test_getGraphicalText());
         if (cs != null)
