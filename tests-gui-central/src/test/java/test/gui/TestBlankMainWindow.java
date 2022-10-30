@@ -159,9 +159,9 @@ public class TestBlankMainWindow extends FXApplicationTest implements ComboUtilT
     public void testCloseMenu()
     {
         testStartState();
-        waitClickOn("#id-menu-project");
+        clickOn("#id-menu-project");
         System.err.println("Windows after menu click: " + getWindowList());
-        waitClickOn(".id-menu-project-close");
+        moveTo(".id-menu-project-close", Motion.VERTICAL_FIRST).clickOn();
         assertTrue(TFXUtil.fx(() -> MainWindow._test_getViews()).isEmpty());
     }
 
