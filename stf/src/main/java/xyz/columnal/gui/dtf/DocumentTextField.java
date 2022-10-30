@@ -133,7 +133,7 @@ public class DocumentTextField extends TextEditorBase implements DocumentListene
             || mouseEvent.getEventType() == MouseEvent.MOUSE_DRAGGED)
                 && mouseEvent.getButton() == MouseButton.PRIMARY)
         {
-            //Log.debug("Got mouse event: " + mouseEvent + " " + mouseEvent.isStillSincePress());
+            Log.debug("Got mouse event: " + mouseEvent + " " + mouseEvent.isStillSincePress());
             // Position the caret at the clicked position:
 
             HitInfo hitInfo = hitTest(mouseEvent.getX(), mouseEvent.getY());
