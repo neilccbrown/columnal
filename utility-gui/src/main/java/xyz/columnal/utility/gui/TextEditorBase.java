@@ -118,6 +118,7 @@ public abstract class TextEditorBase extends Region
             selectionPane = new Pane(selectionShape);
             selectionPane.getStyleClass().add("selection-pane");
             selectionPane.setBlendMode(BlendMode.LIGHTEN);
+            selectionPane.setMouseTransparent(true);
             inverter = new Path();
             inverter.setMouseTransparent(true);
             //inverter.setManaged(false);
