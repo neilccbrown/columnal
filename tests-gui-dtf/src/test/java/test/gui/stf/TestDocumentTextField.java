@@ -9,12 +9,12 @@
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
  *
- * Columnal is distributed in the hope that it will be useful, but WITHOUT 
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+ * Columnal is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
  * more details.
  *
- * You should have received a copy of the GNU General Public License along 
+ * You should have received a copy of the GNU General Public License along
  * with Columnal. If not, see <https://www.gnu.org/licenses/>.
  */
 
@@ -30,7 +30,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import test.gui.TFXUtil;
 import xyz.columnal.log.Log;
@@ -66,18 +69,22 @@ public class TestDocumentTextField extends FXApplicationTest
 {
     @SuppressWarnings("nullness")
     private DocumentTextField field;
-    
+
     @Before
     public void makeField()
     {
-        field = TFXUtil.fx(() -> new DocumentTextField(null));
+        field = TFXUtil.fx(() -> {
+            DocumentTextField documentTextField = new DocumentTextField(null);
+            documentTextField.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+            return documentTextField;
+        });
     }
-    
+
     @Property(trials=5, shrink = false)
     public void testBasic(@From(GenString.class) String s, @From(GenRandom.class) Random r)
     {
         s = removeNonPrintableAndRtoL(s);
-        
+
         if (s.length() > 100)
             s = s.substring(0, s.length() % 100);
 
@@ -86,13 +93,13 @@ public class TestDocumentTextField extends FXApplicationTest
         String unfocused = getText();
         // While unfocused, could be truncated for efficiency:
         assertThat(s, Matchers.startsWith(unfocused));
-        
+
         clickOn(field);
         assertTrue(TFXUtil.fx(() -> field.isFocused()));
         String focused = getText();
         // Once focused, should have complete text:
         assertEquals(s, focused);
-        
+
         push(KeyCode.HOME);
         assertEquals((Integer)0, TFXUtil.<Integer>fx(() -> field.getCaretPosition()));
         int moveRightTo = s.isEmpty() ? 0 : r.nextInt(Math.min(s.length(), 25));
@@ -101,7 +108,7 @@ public class TestDocumentTextField extends FXApplicationTest
             push(KeyCode.RIGHT);
             assertEquals(Integer.valueOf(i + 1), TFXUtil.<Integer>fx(() -> field.getCaretPosition()));
         }
-        
+
         write("a z");
         assertEquals(s.substring(0, moveRightTo) + "a z" + s.substring(moveRightTo), getText());
         for (int i = 0; i < 2; i++)
@@ -117,7 +124,7 @@ public class TestDocumentTextField extends FXApplicationTest
         for (int i = 0; i < 5; i++)
         {
             int pos = s.isEmpty() ? 0 : editPositions.get(r.nextInt(editPositions.size()));
-            Optional<Point2D> clickTarget = TFXUtil.fx(() -> 
+            Optional<Point2D> clickTarget = TFXUtil.fx(() ->
                 field._test_getClickPosFor(pos).map(field::localToScreen)
             );
             clickTarget.ifPresent(this::clickOn);
@@ -205,6 +212,9 @@ public class TestDocumentTextField extends FXApplicationTest
     {
         TFXUtil.fx_(() ->{
             windowToUse.setScene(new Scene(field));
+            windowToUse.getScene().getStylesheets().addAll(
+                FXUtility.getStylesheet("general.css")
+            );
             windowToUse.show();
             windowToUse.sizeToScene();
             field.setDocument(new DisplayDocument(initialText) {
@@ -234,7 +244,7 @@ public class TestDocumentTextField extends FXApplicationTest
         push(KeyCode.BACK_SPACE);
         assertEquals("13", getText());
     }
-    
+
     @Property(trials=5)
     public void testMove(@From(GenString.class) String s, @From(GenRandom.class) Random r)
     {
@@ -321,7 +331,7 @@ public class TestDocumentTextField extends FXApplicationTest
                 }).toArray();
         return new String(filteredCodePoints, 0, filteredCodePoints.length);
     }
-    
+
     @Property(trials=3)
     public void testHorizScroll(@From(GenString.class) String s)
     {
@@ -344,7 +354,7 @@ public class TestDocumentTextField extends FXApplicationTest
                 }
             });
         });
-        
+
         MatcherAssert.assertThat(TFXUtil.fx(() -> field.getWidth()), Matchers.lessThanOrEqualTo(110.0));
 
         clickOn(field);
@@ -369,13 +379,13 @@ public class TestDocumentTextField extends FXApplicationTest
             allBounds.add(FXUtility.boundsToRect(caretBounds));
             assertTrue(fieldBounds.intersects(caretBounds));
         }
-        
+
         assertThat(allBounds.stream().distinct().count(), Matchers.greaterThan(10L));
     }
 
     // TODO test truncating very long strings when unfocused
     // TODO test unfocused document switching
-    
+
 
     private String getText()
     {
