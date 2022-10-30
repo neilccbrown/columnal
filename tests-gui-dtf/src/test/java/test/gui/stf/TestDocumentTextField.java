@@ -144,6 +144,7 @@ public class TestDocumentTextField extends FXApplicationTest
                 drag(aClick.get());
                 moveBy(0, 20);
                 dropTo(bClick.get());
+                TFXUtil.sleep(200);
                 assertEquals("Selecting " + aPos + " to " + bPos, aPos, getFieldAnchorPos());
                 assertEquals("Selecting " + aPos + " to " + bPos, bPos, getFieldCaretPos());
             }
