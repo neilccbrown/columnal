@@ -21,7 +21,7 @@
 package test.gui.transformation;
 
 import annotation.identifier.qual.ExpressionIdentifier;
-import com.eponymouse.testjavafx.node.NodeQuery;
+import org.testjavafx.node.NodeQuery;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.pholser.junit.quickcheck.From;

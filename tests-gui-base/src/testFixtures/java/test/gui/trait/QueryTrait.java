@@ -1,9 +1,9 @@
 package test.gui.trait;
 
-import com.eponymouse.testjavafx.node.NodeQuery;
+import org.testjavafx.node.NodeQuery;
 import javafx.scene.Node;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import com.eponymouse.testjavafx.FxRobotInterface;
+import org.testjavafx.FxRobotInterface;
 import test.gui.TFXUtil;
 import threadchecker.OnThread;
 import threadchecker.Tag;

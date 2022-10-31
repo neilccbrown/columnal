@@ -9,12 +9,12 @@
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
  *
- * Columnal is distributed in the hope that it will be useful, but WITHOUT 
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+ * Columnal is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
  * more details.
  *
- * You should have received a copy of the GNU General Public License along 
+ * You should have received a copy of the GNU General Public License along
  * with Columnal. If not, see <https://www.gnu.org/licenses/>.
  */
 
@@ -22,7 +22,7 @@ package test.gui;
 
 import annotation.identifier.qual.ExpressionIdentifier;
 import annotation.qual.Value;
-import com.eponymouse.testjavafx.Motion;
+import org.testjavafx.Motion;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -109,7 +109,7 @@ import static org.junit.Assert.*;
 public class TestBlankMainWindow extends FXApplicationTest implements ComboUtilTrait, ScrollToTrait, ClickTableLocationTrait, EnterTypeTrait, EnterStructuredValueTrait, FocusOwnerTrait, TextFieldTrait, PopupTrait
 {
     public static final CellPosition NEW_TABLE_POS = new CellPosition(CellPosition.row(1), CellPosition.col(1));
-    
+
     @SuppressWarnings("nullness")
     @OnThread(Tag.Any)
     private @NonNull MainWindowActions mainWindowActions;
@@ -238,7 +238,7 @@ public class TestBlankMainWindow extends FXApplicationTest implements ComboUtilT
     {
         // We make new tables and undo them at random, with
         // slight preference for making.
-        
+
         ArrayList<TableId> tableIds = new ArrayList<>();
 
         for (int i = 0; i < 8; i++)
@@ -276,7 +276,7 @@ public class TestBlankMainWindow extends FXApplicationTest implements ComboUtilT
         assertEquals(1, tableManager.getAllTables().get(0).getData().getLength());
         assertEquals(1, count(".table-display-table-title"));
         assertEquals(1, count(".document-text-field"));
-        
+
         clickOn("#id-menu-edit").moveBy(5, 0).moveTo(".id-menu-edit-undo", Motion.VERTICAL_FIRST).clickOn();
         TFXUtil.sleep(2000);
         assertEquals(1, (int) TFXUtil.fx(() -> tableManager.getAllTables().size()));
@@ -299,7 +299,7 @@ public class TestBlankMainWindow extends FXApplicationTest implements ComboUtilT
         TFXUtil.sleep(200);
         TableManager tableManager = mainWindowActions._test_getTableManager();
         assertEquals(1, (int) TFXUtil.fx(() -> tableManager.getAllTables().size()));
-        
+
         // We make new rows and edit the data, and undo at random.
 
         ArrayList<ArrayList<@Value Number>> dataHistory = new ArrayList<ArrayList<@Value Number>>(ImmutableList.of(new ArrayList<@Value Number>()));
@@ -325,7 +325,7 @@ public class TestBlankMainWindow extends FXApplicationTest implements ComboUtilT
                 // Pop twice as our state will get re-added as latest after this if/else:
                 dataHistory.remove(dataHistory.size() - 1);
                 dataHistory.remove(dataHistory.size() - 1);
-                // Click the project menu so we can see in the video replay how recent the save was: 
+                // Click the project menu so we can see in the video replay how recent the save was:
                 clickOn("#id-menu-project");
                 moveTo("#id-menu-edit").moveBy(5, 0);
                 TFXUtil.sleep(500);
@@ -355,7 +355,7 @@ public class TestBlankMainWindow extends FXApplicationTest implements ComboUtilT
             {
                 TBasicUtil.assertValueEqual("Index " + j, latest.get(j), recordSet.getColumns().get(0).getType().getCollapsed(j));
             }
-            
+
             dataHistory.add(latest);
             TFXUtil.sleep(500);
         }

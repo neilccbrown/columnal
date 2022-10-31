@@ -308,7 +308,7 @@ class TCScanner extends TreePathScanner<Void, Void>
             "capture"
         ))
         {
-            methodAnns.add(new MethodRef("com.eponymouse.testjavafx.FxRobotInterface", methodName, new LocatedTag(Tag.FXPlatform, false, true, "TestFX")));    
+            methodAnns.add(new MethodRef("org.testjavafx.FxRobotInterface", methodName, new LocatedTag(Tag.FXPlatform, false, true, "TestFX")));    
         }
         for (String queryClass : Arrays.asList(
             "org.testfx.service.query.BoundsQuery",

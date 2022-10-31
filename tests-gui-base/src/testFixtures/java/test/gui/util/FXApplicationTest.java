@@ -20,8 +20,8 @@
 
 package test.gui.util;
 
-import com.eponymouse.testjavafx.FxRobot;
-import com.eponymouse.testjavafx.FxRobotInterface;
+import org.testjavafx.FxRobot;
+import org.testjavafx.FxRobotInterface;
 import com.sun.javafx.application.ParametersImpl;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -79,7 +79,7 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertNull;
 import static org.testfx.util.NodeQueryUtils.isVisible;
 
-public class FXApplicationTest extends com.eponymouse.testjavafx.junit4.ApplicationTest implements FocusOwnerTrait, ScreenshotTrait, QueryTrait
+public class FXApplicationTest extends org.testjavafx.junit4.ApplicationTest implements FocusOwnerTrait, ScreenshotTrait, QueryTrait
 {
     @Rule
     public TestWatcher screenshotOnFail = new TestWatcher()
@@ -91,7 +91,7 @@ public class FXApplicationTest extends com.eponymouse.testjavafx.junit4.Applicat
         protected void failed(Throwable e, Description description)
         {
             super.failed(e, description);
-            System.err.println("Screenshot of failure, " + TFXUtil.fx(() -> targetWindow()).toString() + ":");
+            System.err.println("Screenshot of failure, " + TFXUtil.fx(() -> focusedWindow()).toString() + ":");
             TFXUtil.fx_(() -> dumpScreenshot());
             e.printStackTrace();
             if (e.getCause() != null)
@@ -185,7 +185,7 @@ public class FXApplicationTest extends com.eponymouse.testjavafx.junit4.Applicat
         //printBase64(new Robot().getScreenCapture(null, Screen.getPrimary().getBounds()));
         WritableImage whole = new WritableImage((int)Screen.getPrimary().getBounds().getWidth(), (int)Screen.getPrimary().getBounds().getHeight());
         ObservableList<Window> windows = Window.getWindows();
-        if (!windows.isEmpty() && windows.contains(targetWindow()))
+        if (!windows.isEmpty() && windows.contains(focusedWindow()))
         {
             windows.forEach(w -> {
                 WritableImage ws = w.getScene().snapshot(null);
@@ -202,7 +202,7 @@ public class FXApplicationTest extends com.eponymouse.testjavafx.junit4.Applicat
         else
         {
             // So capture window instead:
-            Window window = targetWindow();
+            Window window = focusedWindow();
             if (window != null)
                 dumpScreenshot(window);
         }

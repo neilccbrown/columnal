@@ -20,7 +20,7 @@
 
 package test.gui.expressionEditor;
 
-import com.eponymouse.testjavafx.node.NodeQuery;
+import org.testjavafx.node.NodeQuery;
 import com.google.common.collect.ImmutableMap;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import javafx.scene.Node;

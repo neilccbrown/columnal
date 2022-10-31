@@ -24,7 +24,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import com.eponymouse.testjavafx.FxRobotInterface;
+import org.testjavafx.FxRobotInterface;
 import test.gui.TFXUtil;
 import threadchecker.OnThread;
 import threadchecker.Tag;
@@ -57,7 +57,7 @@ public interface FocusOwnerTrait extends FxRobotInterface
     default Window getRealFocusedWindow()
     {
         if (true)
-            return targetWindow();
+            return focusedWindow();
         // The only children of Window are PopupWindow, Stage and EmbeddedWindow.
         // We are not interested in popup or embedded so we may as well
         // filter down to Stage:
@@ -80,7 +80,7 @@ public interface FocusOwnerTrait extends FxRobotInterface
             });
         }
         // Fall back to targetWindow if we still haven't narrowed it down:
-        return curWindow.size() == 1 ? curWindow.get(0) : targetWindow();
+        return curWindow.size() == 1 ? curWindow.get(0) : focusedWindow();
     }
 
     @OnThread(Tag.Any)
@@ -88,7 +88,7 @@ public interface FocusOwnerTrait extends FxRobotInterface
     {
         Node node = getFocusOwner();
         if (!expectedClass.isInstance(node))
-            throw new RuntimeException("Focus owner is " + (node == null ? "null" : node.getClass().toString()) + " but expected " + expectedClass + " Target window: " + TFXUtil.fx(() -> targetWindow()) + " Real focused window: " + TFXUtil.fx(() -> getRealFocusedWindow()));
+            throw new RuntimeException("Focus owner is " + (node == null ? "null" : node.getClass().toString()) + " but expected " + expectedClass + " Target window: " + TFXUtil.fx(() -> focusedWindow()) + " Real focused window: " + TFXUtil.fx(() -> getRealFocusedWindow()));
         return expectedClass.cast(node);
     }
 

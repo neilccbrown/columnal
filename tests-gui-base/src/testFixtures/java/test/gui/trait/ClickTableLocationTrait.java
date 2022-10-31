@@ -20,7 +20,7 @@
 
 package test.gui.trait;
 
-import com.eponymouse.testjavafx.node.NodeQuery;
+import org.testjavafx.node.NodeQuery;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -29,7 +29,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import test.gui.TFXUtil;
 import xyz.columnal.log.Log;
-import com.eponymouse.testjavafx.FxRobotInterface;
+import org.testjavafx.FxRobotInterface;
 import xyz.columnal.gui.grid.RectangleBounds;
 import xyz.columnal.gui.grid.VirtualGrid;
 import threadchecker.OnThread;

@@ -106,7 +106,7 @@ public class TestKeyboardMovement extends FXApplicationTest implements ScrollToT
                 }
                     
                 Log.debug("Pressing: " + keyCode + " at rect: " + rectangleBounds); 
-                        //" Focus owner: " + TFXUtil.fx(() -> targetWindow().getScene().getFocusOwner()));
+                        //" Focus owner: " + TFXUtil.fx(() -> focusedWindow().getScene().getFocusOwner()));
                 push(keyCode);
                 // If we've reached edge, don't count keypress on the reverse trip:
                 RectangleBounds newRectangleBounds = TFXUtil.fx(() -> virtualGrid._test_getSelection().map(s -> s.getSelectionDisplayRectangle())).get();
@@ -156,7 +156,7 @@ public class TestKeyboardMovement extends FXApplicationTest implements ScrollToT
             // In case of a load:
             TFXUtil.sleep(5000);
             selectionRect = TFXUtil.fx(() -> lookup(".virt-grid-selection-overlay").match(Node::isVisible).tryQuery().orElse(null));
-            Log.debug("Window: " + windowToUse + " Target: " + TFXUtil.fx(() -> targetWindow()) + " rect: " + TFXUtil.fx(() -> lookup(".virt-grid-selection-overlay").tryQuery().orElse(null)));
+            Log.debug("Window: " + windowToUse + " Target: " + TFXUtil.fx(() -> focusedWindow()) + " rect: " + TFXUtil.fx(() -> lookup(".virt-grid-selection-overlay").tryQuery().orElse(null)));
         }
         assertTrue(prefix, TFXUtil.fx(() -> windowToUse.isFocused()));
         assertNotNull(prefix, selectionRect);

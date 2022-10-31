@@ -28,7 +28,7 @@ import javafx.stage.PopupWindow;
 import javafx.stage.Window;
 import test.gui.TFXUtil;
 import xyz.columnal.log.Log;
-import com.eponymouse.testjavafx.FxRobotInterface;
+import org.testjavafx.FxRobotInterface;
 import org.testfx.service.query.PointQuery;
 import threadchecker.OnThread;
 import threadchecker.Tag;

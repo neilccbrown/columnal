@@ -25,7 +25,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Window;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Assert;
-import com.eponymouse.testjavafx.FxRobotInterface;
+import org.testjavafx.FxRobotInterface;
 import test.gui.TFXUtil;
 import xyz.columnal.gui.dialog.AutoComplete.Completion;
 import xyz.columnal.gui.lexeditor.completion.LexAutoCompleteWindow;

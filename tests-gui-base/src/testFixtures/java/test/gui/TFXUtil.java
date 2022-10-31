@@ -37,7 +37,7 @@ import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import org.apache.commons.lang3.SystemUtils;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import com.eponymouse.testjavafx.FxRobotInterface;
+import org.testjavafx.FxRobotInterface;
 import org.testfx.util.WaitForAsyncUtils;
 import test.gui.trait.PopupTrait;
 import threadchecker.OnThread;

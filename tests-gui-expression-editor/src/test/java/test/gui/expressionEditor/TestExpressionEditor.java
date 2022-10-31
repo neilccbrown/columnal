@@ -20,8 +20,8 @@
 
 package test.gui.expressionEditor;
 
-import com.eponymouse.testjavafx.FxRobot;
-import com.eponymouse.testjavafx.FxRobotInterface;
+import org.testjavafx.FxRobot;
+import org.testjavafx.FxRobotInterface;
 import com.google.common.collect.ImmutableList;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
