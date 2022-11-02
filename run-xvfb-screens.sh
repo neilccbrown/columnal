@@ -27,7 +27,7 @@ done
 
 for i in {0..15}
 do
-  icewm -d :$((42 + i)) &
+  icewm -d :$((42 + i)).0 &
   sleep 1
 done
 
