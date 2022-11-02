@@ -187,13 +187,13 @@ subprojects { subproject ->
       int index = allSubprojects.findAll{p -> p.name.contains("tests-gui")}.collect {p -> p.name}.sort().indexOf(subproject.name) - 1
 
       if ("true".equals(project.findProperty("xvfb"))) {
-        environment "DISPLAY", ":42." + index
+        environment "DISPLAY", ":" + (42 + index) + ".0"
       }
       
       doFirst {
         if (index >= 0 && "true".equals(project.findProperty("xvfb"))) {
           if ("true".equals(project.findProperty("screenrecord"))) {
-            new File(subproject.name + ".ffmpegpid").write("" + new ProcessBuilder("ffmpeg", "-nostdin", "-y", "-video_size", "1920x1200", "-framerate", "8", "-f", "x11grab", "-i", ":42." + index, "-codec:v", "libx264rgb", "-preset", "ultrafast", "-vf", "drawtext=text='%{localtime\\:%T}':x=100:y=50:fontcolor=white:fontsize=30", "recording-" + subproject.name + ".mp4").redirectOutput(new File(subproject.name + ".out.ffmpeg.log")).redirectError(new File(subproject.name + ".err.ffmpeg.log")).start().pid())
+            new File(subproject.name + ".ffmpegpid").write("" + new ProcessBuilder("ffmpeg", "-nostdin", "-y", "-video_size", "1920x1200", "-framerate", "8", "-f", "x11grab", "-i", ":" + (42 + index) + ".0", "-codec:v", "libx264rgb", "-preset", "ultrafast", "-vf", "drawtext=text='%{localtime\\:%T}':x=100:y=50:fontcolor=white:fontsize=30", "recording-" + subproject.name + ".mp4").redirectOutput(new File(subproject.name + ".out.ffmpeg.log")).redirectError(new File(subproject.name + ".err.ffmpeg.log")).start().pid())
           }
         }
       }
