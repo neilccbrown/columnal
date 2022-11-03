@@ -39,6 +39,7 @@ import xyz.columnal.gui.dialog.AutoComplete.SimpleCompletion;
 import xyz.columnal.gui.dialog.AutoComplete.WhitespacePolicy;
 import threadchecker.OnThread;
 import threadchecker.Tag;
+import xyz.columnal.log.Log;
 import xyz.columnal.utility.function.fx.FXPlatformConsumer;
 import xyz.columnal.utility.IdentifierUtility;
 import xyz.columnal.utility.gui.FXUtility;
@@ -70,6 +71,7 @@ public class PickTablePane extends BorderPane implements TimedFocusable
         setMargin(tableField, new Insets(4, 4, 4, 4));
         
         FXUtility.addChangeListenerPlatformNN(tableField.focusedProperty(), focus -> {
+            Log.logStackTrace("PickTablePane.field focused");
             // Update whether focus is arriving or leaving:
             lastEditTimeMillis = System.currentTimeMillis();
         });
