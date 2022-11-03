@@ -20,6 +20,7 @@
 
 package test.gui.expressionEditor;
 
+import javafx.stage.Window;
 import org.testjavafx.FxRobot;
 import org.testjavafx.FxRobotInterface;
 import com.google.common.collect.ImmutableList;
@@ -96,6 +97,9 @@ public class TestExpressionEditor extends BaseTestExpressionEditorEntry implemen
     public FxRobot write(String text, int sleepMillis)
     {
         Log.normal("Writing: {{{" + text + "}}}");
+        Window w = focusedWindow();
+        Log.normal("  Into: " + TFXUtil.fx(() -> w instanceof Stage s ? s.getTitle() : w));
+        Log.normal("    Into: " + TFXUtil.fx(() -> w != null ? w.getScene().getFocusOwner() : null));
         return super.write(text, sleepMillis);
     }
 
