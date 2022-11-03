@@ -93,7 +93,7 @@ public class TestExpressionEditor extends BaseTestExpressionEditorEntry implemen
 
     @Override
     @OnThread(value = Tag.Any)
-    public FxRobotInterface write(String text, int sleepMillis)
+    public FxRobot write(String text, int sleepMillis)
     {
         Log.normal("Writing: {{{" + text + "}}}");
         return super.write(text, sleepMillis);
