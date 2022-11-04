@@ -71,6 +71,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -91,7 +92,7 @@ public class FXApplicationTest extends org.testjavafx.junit4.ApplicationTest imp
         protected void failed(Throwable e, Description description)
         {
             super.failed(e, description);
-            System.err.println("Screenshot of failure, " + TFXUtil.fx(() -> focusedWindow()).toString() + ":");
+            System.err.println("Screenshot of failure, " + TFXUtil.fx(() -> focusedWindows()).toString() + ":");
             TFXUtil.fx_(() -> dumpScreenshot());
             e.printStackTrace();
             if (e.getCause() != null)
@@ -185,7 +186,7 @@ public class FXApplicationTest extends org.testjavafx.junit4.ApplicationTest imp
         //printBase64(new Robot().getScreenCapture(null, Screen.getPrimary().getBounds()));
         WritableImage whole = new WritableImage((int)Screen.getPrimary().getBounds().getWidth(), (int)Screen.getPrimary().getBounds().getHeight());
         ObservableList<Window> windows = Window.getWindows();
-        if (!windows.isEmpty() && windows.contains(focusedWindow()))
+        if (!windows.isEmpty() && windows.containsAll(focusedWindows()))
         {
             windows.forEach(w -> {
                 WritableImage ws = w.getScene().snapshot(null);
@@ -202,9 +203,9 @@ public class FXApplicationTest extends org.testjavafx.junit4.ApplicationTest imp
         else
         {
             // So capture window instead:
-            Window window = focusedWindow();
-            if (window != null)
-                dumpScreenshot(window);
+            List<Window> focusedWindows = focusedWindows();
+            if (!focusedWindows.isEmpty())
+                focusedWindows.forEach(this::dumpScreenshot);
         }
     }
     

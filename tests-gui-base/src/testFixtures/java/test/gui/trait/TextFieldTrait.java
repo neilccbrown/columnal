@@ -40,7 +40,7 @@ public interface TextFieldTrait extends FxRobotInterface, FocusOwnerTrait
         Node focusOwner = getFocusOwner();
         if (!(focusOwner instanceof TextInputControl))
             throw new RuntimeException("Focus owner is " + (focusOwner == null ? "null" : focusOwner.getClass().toString()) 
-                + "\nTarget window is " + TFXUtil.fx(() -> focusedWindow()) + " " + TFXUtil.fx(() -> focusedWindow().isFocused())
+                + "\nTarget window is " + TFXUtil.fx(() -> focusedWindows())
                 //+ "\nOut of " + TFXUtil.fx(() -> Streams.stream(Window.impl_getWindows()).map(w -> w.toString() + ":" + w.isFocused()).collect(Collectors.joining("/")))
             );
         TextInputControl textField = (TextInputControl) focusOwner;

@@ -97,9 +97,6 @@ public class TestExpressionEditor extends BaseTestExpressionEditorEntry implemen
     public FxRobot write(String text, int sleepMillis)
     {
         Log.normal("Writing: {{{" + text + "}}}");
-        Window w = focusedWindow();
-        Log.normal("  Into: " + TFXUtil.fx(() -> w instanceof Stage s ? s.getTitle() : w));
-        Log.normal("    Into: " + TFXUtil.fx(() -> w != null ? w.getScene().getFocusOwner() : null));
         return super.write(text, sleepMillis);
     }
 
