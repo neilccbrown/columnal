@@ -56,29 +56,7 @@ public interface FocusOwnerTrait extends FxRobotInterface
     @OnThread(Tag.FXPlatform)
     default Window getRealFocusedWindow()
     {
-        // The only children of Window are PopupWindow, Stage and EmbeddedWindow.
-        // We are not interested in popup or embedded so we may as well
-        // filter down to Stage:
-        List<Stage> curWindow = new ArrayList<>(
-            Utility.filterClass(
-                listWindows().stream().filter(Window::isFocused),
-                Stage.class)
-            .collect(Collectors.toList()));
-        if (curWindow.isEmpty())
-            throw new RuntimeException("No focused window?!  Options were: " + Utility.listToString(listWindows()));
-        // It seems that (only in Monocle?) multiple windows can claim to
-        // have focus when a main window shows sub-dialogs, so we have to manually
-        // try to work out the real focused window:
-        if (curWindow.size() > 1)
-        {
-            // Remove any windows claiming to be focused which have a child
-            // window that is focused:
-            TFXUtil.fx_(() -> {
-                curWindow.removeIf(w -> curWindow.stream().anyMatch(parent -> parent instanceof Stage && ((Stage) parent).getOwner() == w));
-            });
-        }
-        // Fall back to targetWindow if we still haven't narrowed it down:
-        return curWindow.size() == 1 ? curWindow.get(0) : targetWindow();
+        return targetWindow();
     }
 
     @OnThread(Tag.Any)
